@@ -4,8 +4,8 @@ export default function Todo(props) {
   return (
     <li className="todo stack-small">
       <div className="c-cb">
-        <input id="todo-0" type="checkbox" defaultChecked={props.done} />
-        <label className="todo-label" htmlFor="todo-0">
+        <input id="{id}" type="checkbox" defaultChecked={props.done} />
+        <label className="todo-label" htmlFor="{id}">
           {props.name}
         </label>
       </div>
