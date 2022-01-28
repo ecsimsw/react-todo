@@ -9,7 +9,7 @@ function Form(props) {
 
         if(name.trim() !== ""){
             setName("");
-            props.task("Added!");
+            props.task(name);
         }
     }
 
