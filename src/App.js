@@ -15,10 +15,7 @@ function App(props) {
             console.log("completed");
             if (id === task.id) {
                 console.log(task);
-                return {
-                    ...task,
-                    completed: !task.completed,
-                }
+                return {...task, completed: !task.completed,}
             }
             return task;
         });
@@ -27,8 +24,8 @@ function App(props) {
 
     function editTask(id, newName) {
         const editedTasks = tasks.map(task => {
-            if(id !== task.id) {
-                return {...task, name: name}
+            if (id === task.id) {
+                return {...task, name: newName}
             }
             return task
         });
@@ -49,7 +46,7 @@ function App(props) {
                 completed={task.completed}
                 key={task.id}
                 toggleTaskCompleted={toggleTaskCompleted}
-                deleteTask = {deleteTask}
+                deleteTask={deleteTask}
                 editTask={editTask}
             />
         )
