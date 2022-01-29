@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {nanoid} from "nanoid";
+
 import './App.css';
 import Todo from './components/Todo'
 import Form from "./components/Form";
@@ -8,19 +10,39 @@ function App(props) {
 
     const [tasks, setTasks] = useState(props.tasks)
 
+    function toggleTaskCompleted(id) {
+        const updatedTasks = tasks.map(task => {
+            console.log("completed");
+            if (id === task.id) {
+                console.log(task);
+                return {
+                    ...task,
+                    completed: !task.completed,
+                }
+            }
+            return task;
+        });
+        setTasks(updatedTasks);
+    }
+
+
     const taskList = tasks.map(task => (
         <Todo
             id={task.id}
             name={task.name}
             done={task.completed}
             key={task.id}
+            toggleTaskCompleted={toggleTaskCompleted}
         />
     ));
 
     function addTask(name) {
-        const newTask = { id: "id", name: name, completed: false };
+        const newTask = {id: "todo-" + nanoid(), name: name, completed: false};
         setTasks([...tasks, newTask]);
     }
+
+    const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
+    const headingText = `${taskList.length} ${tasksNoun} remaining`;
 
     return (
         <div className="todoapp stack-large">
@@ -32,7 +54,7 @@ function App(props) {
                 <FilterButton title="Temp" pressed="false"/>
             </div>
             <h2 id="list-heading">
-                {taskList.length} tasks remaining
+                {headingText}
             </h2>
             <ul
                 role="list"
