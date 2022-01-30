@@ -1,5 +1,6 @@
 import './App.css';
 import Todo from './component/Todo'
+import FilterButton from './component/FilterButton'
 
 function App() {
     return (
@@ -23,21 +24,9 @@ function App() {
                 </button>
             </form>
             <div className="filters btn-group stack-exception">
-                <button type="button" className="btn toggle-btn" aria-pressed="true">
-                    <span className="visually-hidden">Show </span>
-                    <span>all</span>
-                    <span className="visually-hidden"> tasks</span>
-                </button>
-                <button type="button" className="btn toggle-btn" aria-pressed="false">
-                    <span className="visually-hidden">Show </span>
-                    <span>Active</span>
-                    <span className="visually-hidden"> tasks</span>
-                </button>
-                <button type="button" className="btn toggle-btn" aria-pressed="false">
-                    <span className="visually-hidden">Show </span>
-                    <span>Completed</span>
-                    <span className="visually-hidden"> tasks</span>
-                </button>
+                <FilterButton name = "all" pressed = {true}/>
+                <FilterButton name = "Active" pressed = {false}/>
+                <FilterButton name = "Completed" pressed = {false}/>
             </div>
             <h2 id="list-heading">
                 3 tasks remaining
@@ -47,23 +36,9 @@ function App() {
                 className="todo-list stack-large stack-exception"
                 aria-labelledby="list-heading"
             >
-                <Todo
-                    id="todo-0"
-                    name="Eat"
-                    done={true}
-                />
-
-                <Todo
-                    id="todo-1"
-                    name="Read"
-                    done={false}
-                />
-
-                <Todo
-                    id="todo-2"
-                    name="Hack"
-                    done={true}
-                />
+                <Todo id="todo-0" name="Eat" done={true}/>
+                <Todo id="todo-1" name="Read" done={false}/>
+                <Todo id="todo-2" name="Hack" done={true}/>
             </ul>
         </div>
     );
