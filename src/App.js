@@ -14,24 +14,39 @@ const BEFORE_TASK_DATA = [
 function App() {
 
     const [tasks, setTasks] = useState(BEFORE_TASK_DATA);
-    const taskList = tasks.map(task => {
-        return (<Todo
-            id={task.id}
-            name={task.name}
-            done={task.done}
-            editName={editTaskName}
-        />);
-    })
 
     function handleTaskSubmitEvent(name) {
-        setTasks([...tasks,  {id: "todo-" + nanoid(), name: name, done: false}]);
+        setTasks([...tasks, {id: "todo-" + nanoid(), name: name, done: false}]);
     }
 
     function editTaskName(id, name) {
-        const newTasks = tasks.map(task => {
-            return task.id === id ? {...task, name: name} : task;
-        });
+        const newTasks = tasks.map(task => task.id === id ? {...task, name: name} : task);
         setTasks(newTasks);
+    }
+
+    const filters = [
+        {name: "All", isReveal: () => true},
+        {name: "Active", isReveal: task => !task.done},
+        {name: "Completed", isReveal: task => task.done}
+    ];
+
+    const [activatedFilter, setActivatedFilter] = useState(filters[0])
+
+    const taskList = tasks.filter(activatedFilter.isReveal).map(task => {
+        return (
+            <Todo
+                id={task.id}
+                name={task.name}
+                done={task.done}
+                editName={editTaskName}
+            />);
+    });
+
+    function activateFilter(name) {
+        const activated = filters.find(filter => filter.name === name);
+        if (activated !== undefined) {
+            setActivatedFilter(activated);
+        }
     }
 
     return (
@@ -39,12 +54,19 @@ function App() {
             <h1>ecsimsw todo</h1>
             <TaskAddition submitHandler={handleTaskSubmitEvent}/>
             <div className="filters btn-group stack-exception">
-                <FilterButton name="all" pressed={true}/>
-                <FilterButton name="Active" pressed={false}/>
-                <FilterButton name="Completed" pressed={false}/>
+                {
+                    filters.map(filter => {
+                        return (
+                            <FilterButton
+                                name={filter.name}
+                                pressed={filter.name === activatedFilter.name}
+                                activateHandler={activateFilter}
+                            />)
+                    })
+                }
             </div>
             <h2 id="list-heading">
-                {tasks.length} tasks remaining
+                {taskList.length} tasks remaining
             </h2>
             <ul
                 role="list"
