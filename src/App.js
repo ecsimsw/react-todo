@@ -44,6 +44,15 @@ function App() {
             />);
     });
 
+    const filterList =  filters.map(filter => {
+        return (
+            <FilterButton
+                name={filter.name}
+                pressed={filter.name === activatedFilter.name}
+                activateHandler={activateFilter}
+            />)
+    })
+
     function activateFilter(name) {
         const activated = filters.find(filter => filter.name === name);
         if (activated !== undefined) {
@@ -66,16 +75,7 @@ function App() {
             <h1>ecsimsw todo</h1>
             <TaskAddition submitHandler={handleTaskSubmitEvent}/>
             <div className="filters btn-group stack-exception">
-                {
-                    filters.map(filter => {
-                        return (
-                            <FilterButton
-                                name={filter.name}
-                                pressed={filter.name === activatedFilter.name}
-                                activateHandler={activateFilter}
-                            />)
-                    })
-                }
+                {filterList}
             </div>
             <h2 id="list-heading">
                 {taskList.length} tasks remaining
