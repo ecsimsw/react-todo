@@ -33,12 +33,14 @@ function App() {
     const [activatedFilter, setActivatedFilter] = useState(filters[0])
 
     const taskList = tasks.filter(activatedFilter.isReveal).map(task => {
+        console.log(task.name + " " + task.done)
         return (
             <Todo
                 id={task.id}
                 name={task.name}
                 done={task.done}
                 editName={editTaskName}
+                completeTask = {completeTask}
             />);
     });
 
@@ -47,6 +49,11 @@ function App() {
         if (activated !== undefined) {
             setActivatedFilter(activated);
         }
+    }
+
+    function completeTask(id, done) {
+        const newTasks = tasks.map(task => task.id === id ? {... task, done:done} : task);
+        setTasks(newTasks)
     }
 
     return (

@@ -16,6 +16,11 @@ export default function Todo(props) {
         setNewName("");
     }
 
+    function handleTaskComplete(e) {
+        e.preventDefault();
+        props.completeTask(props.id, true)
+    }
+
     const editingTemplate = (
         <form className="stack-small" onSubmit={handleEditSubmitEvent}>
             <div className="form-group">
@@ -55,6 +60,7 @@ export default function Todo(props) {
                     id={props.id}
                     type="checkbox"
                     defaultChecked={props.done}
+                    onChange={handleTaskComplete}
                 />
                 <label className="todo-label" htmlFor={props.id}>
                     {props.name}
