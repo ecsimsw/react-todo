@@ -22,6 +22,12 @@ export default function Todo(props) {
         props.completeTask(props.id)
     }
 
+    function handleEditCancel(e) {
+        e.preventDefault();
+        setNewName("");
+        setEditing(false);
+    }
+
     const editingTemplate = (
         <form className="stack-small" onSubmit={handleEditSubmitEvent}>
             <div className="form-group">
@@ -41,6 +47,7 @@ export default function Todo(props) {
                 <button
                     type="button"
                     className="btn todo-cancel"
+                    onClick={handleEditCancel}
                 >
                     Cancel
                     <span className="visually-hidden">renaming {props.name}</span>
