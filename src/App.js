@@ -33,7 +33,6 @@ function App() {
     const [activatedFilter, setActivatedFilter] = useState(filters[0])
 
     const taskList = tasks.filter(activatedFilter.isReveal).map(task => {
-        console.log(task.name + " " + task.done)
         return (
             <Todo
                 id={task.id}
@@ -41,6 +40,7 @@ function App() {
                 done={task.done}
                 editName={editTaskName}
                 completeTask = {completeTask}
+                delete = {deleteTask}
             />);
     });
 
@@ -53,6 +53,11 @@ function App() {
 
     function completeTask(id, done) {
         const newTasks = tasks.map(task => task.id === id ? {... task, done:done} : task);
+        setTasks(newTasks)
+    }
+
+    function deleteTask(id) {
+        const newTasks = tasks.filter(task => task.id !== id)
         setTasks(newTasks)
     }
 

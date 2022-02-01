@@ -28,6 +28,11 @@ export default function Todo(props) {
         setEditing(false);
     }
 
+    function handleDelete(e) {
+        e.preventDefault();
+        props.delete(props.id);
+    }
+
     const editingTemplate = (
         <form className="stack-small" onSubmit={handleEditSubmitEvent}>
             <div className="form-group">
@@ -83,6 +88,7 @@ export default function Todo(props) {
                 <button
                     type="button"
                     className="btn btn__danger"
+                    onClick={handleDelete}
                 >
                     Delete <span className="visually-hidden">{props.name}</span>
                 </button>
