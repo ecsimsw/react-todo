@@ -52,23 +52,9 @@ function App() {
     }
 
     function completeTask(id, done) {
-        console.log(done)
         const newTasks = tasks.map(task => task.id === id ? {... task, done:done} : task);
         setTasks(newTasks)
     }
-
-    // function completeTask(id) {
-    //     const updatedTasks = tasks.map(task => {
-    //         // if this task has the same ID as the edited task
-    //         if (id === task.id) {
-    //             // use object spread to make a new object
-    //             // whose `completed` prop has been inverted
-    //             return {...task, completed: !task.completed}
-    //         }
-    //         return task;
-    //     });
-    //     setTasks(updatedTasks);
-    // }
 
     return (
         <div className="todoapp stack-large">

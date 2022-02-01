@@ -18,8 +18,8 @@ export default function Todo(props) {
 
     function handleTaskComplete(e) {
         e.preventDefault();
-        console.log("hi")
-        props.completeTask(props.id, !props.done)
+        // console.log("hi")
+        props.completeTask(props.id)
     }
 
     const editingTemplate = (
@@ -60,12 +60,12 @@ export default function Todo(props) {
                 <input
                     id={props.id}
                     type="checkbox"
-                    defaultChecked={props.done}
-                    // onChange={() => props.completeTask(props.id, !props.done)}
-                    onChange={handleTaskComplete}
+                    checked={props.done}
+                    onChange={() => {props.completeTask(props.id, !props.done)}}
+                    // onChange={handleTaskComplete}
                 />
                 <label className="todo-label" htmlFor={props.id}>
-                    {props.name}
+                    {props.name} / {props.done ? "completed" : "activate"}
                 </label>
             </div>
             <div className="btn-group">
