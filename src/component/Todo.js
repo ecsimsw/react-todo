@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 
-export default function Todo(props) {
+const Todo = (props) => {
 
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState("");
 
-    function startEditing() {
+    const startEditing = () => {
         setEditing(true);
     }
+
+
 
     function handleEditSubmitEvent(e) {
         e.preventDefault();
@@ -16,10 +18,8 @@ export default function Todo(props) {
         setNewName("");
     }
 
-    function handleTaskComplete(e) {
-        e.preventDefault();
-        // console.log("hi")
-        props.completeTask(props.id)
+    function handleTaskComplete() {
+        props.completeTask(props.id, !props.done);
     }
 
     function handleEditCancel(e) {
@@ -42,10 +42,7 @@ export default function Todo(props) {
                 <input id={props.id}
                        className="todo-text"
                        type="text"
-                       onChange={e => {
-                           e.preventDefault();
-                           setNewName(e.target.value);
-                       }}
+                       onChange={ ({target}) => { setNewName(target.value);}}
                 />
             </div>
             <div className="btn-group">
@@ -66,6 +63,7 @@ export default function Todo(props) {
         </form>
     );
 
+
     const viewTemplate = (
         <div className="stack-small">
             <div className="c-cb">
@@ -73,11 +71,10 @@ export default function Todo(props) {
                     id={props.id}
                     type="checkbox"
                     checked={props.done}
-                    onChange={() => {props.completeTask(props.id, !props.done)}}
-                    // onChange={handleTaskComplete}
+                    onChange={handleTaskComplete}
                 />
                 <label className="todo-label" htmlFor={props.id}>
-                    {props.name} / {props.done ? "completed" : "activate"}
+                    {props.name} / {props.done ? "true" : "false"}
                 </label>
             </div>
             <div className="btn-group">
@@ -98,3 +95,5 @@ export default function Todo(props) {
 
     return isEditing ? editingTemplate : viewTemplate;
 }
+
+export default Todo;
